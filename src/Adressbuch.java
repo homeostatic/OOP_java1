@@ -1,23 +1,24 @@
 import java.util.*;
 
-
 public class Adressbuch {
+	// class for saving an array of AbstractContact objects
+	// includes methods for creation, recall, deletion and search with interactive console tools 
 	
-	private ArrayList<Contact> adressbuch;
+	private ArrayList<AbstractContact> adressbuch;
 	
 	public Adressbuch(){
 		// empty Construstor		
-		this.adressbuch = new ArrayList<Contact>();
+		this.adressbuch = new ArrayList<AbstractContact>();
 			
 	}
-	public Adressbuch(ArrayList<Contact> add){
-		// 2nd Constructor which accepts an Array of contacts
-		this.adressbuch = add;
+	public Adressbuch(ArrayList<AbstractContact> array){
+		// 2nd Constructor which accepts an Array of contacts (mainly for testing purposes)
+		this.adressbuch = array;
 	}
 	
 	
 	public void printContacts() {
-		
+		// prints a list of saved contacts with entry numbers to the console		
 		int len = this.adressbuch.size();
 		
 		for (int i=0; i < len; i++) {
@@ -31,6 +32,8 @@ public class Adressbuch {
 	}	
 	
 	public void deleteContact(Scanner scan) {
+		// interactive console tool for the deletion of a user selected Entry in the Addressbook
+		// accepts the Scanner object created in the main class to read user console inputs
 		
 		this.printContacts();
 		System.out.println("Which of the following entries do you want to delete (-1 for cancel)");
@@ -61,6 +64,8 @@ public class Adressbuch {
 	 }
 		
 	public void adder_tool(Scanner scan){
+		// methode for adding entries to the addressbook via interactive console inputs
+		// accepts the Scanner object created in the main class to read user input
 		System.out.println("What Kind of contact do you want to add? \n 1: Person \n 2: Company");
 		if (Integer.valueOf(scan.nextLine())==1){
 			// Step 1: Name 
@@ -104,15 +109,11 @@ public class Adressbuch {
 			;
 		}
 		//if (//another int??){}
-
-		
-		
-		
+			//error/try again	
 	 
 	// 			
 
 	}
-	
 	
 	
 	public void search(String s) {
@@ -121,7 +122,7 @@ public class Adressbuch {
 		for (int i=0;i < this.adressbuch.size();i++){
 		// for each contact:
 			boolean found = false;
-			Contact cur_contact = this.adressbuch.get(i);
+			AbstractContact cur_contact = this.adressbuch.get(i);
 			// check name
 			Name cur_name = cur_contact.getName();
 			if (cur_name.firstname().contains(s)){
@@ -138,18 +139,13 @@ public class Adressbuch {
 			if (cur_add.getStreet().contains(s)){
 				found = true;
 			}
-
+			// after all the checks results with a match will be printed to the console
 			if (found){
 				System.out.println("Entry " + i + ":");
 				System.out.println(cur_contact.toString());
 			}
-
-				
+		
 		}
-		//.contains(s)
-		
-		
-		
 		
 	}
 	
