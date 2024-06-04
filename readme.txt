@@ -71,14 +71,14 @@ Todo:
     !# we need to figure out how to allow both Contact and Firma objects in our Adressbuch ArrayList.
         # maybe we can make it an ArrayList of abstraktContacts?
         # or can we make an ArrayList that accepts 2 Objekt-types?
-        # worst case we could also just have a second ArrayList with the Firmen 
+        # worst case we could also just have a second ArrayList with the Firmen #done!
 
     # rewrite interaktiv console tool to be generalised to all contact types
         # Aufgabenstellung says the addContact() should be the interactive one
         # do we want to move parts of it to the repective classes (make the code more modular)
 
     # fix search to work with Firmen, can we generalise this somehow? all the if's are kind of ugly
-        # maybe we could use the toString() methods to search all Attributes at once?
+        # maybe we could use the toString() methods to search all Attributes at once? #done!
 
     # can we move more stuff into the abstraktContact class?
         # maybe a constructor that can be called from the addContact() method in Addressbook?
