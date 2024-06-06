@@ -20,6 +20,8 @@ public class Address {
         this.city = city;
         this.postcode = String.valueOf(postcode);
     }
+    
+ 
     // package private
     static Address scanAddress(Scanner scan){
             System.out.println("What is the address of your contact?");

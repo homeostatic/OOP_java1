@@ -85,3 +85,6 @@ Todo:
         # maybe the interactive part addAddress part?
 
     # write this document.  
+        # comments
+        # java Version
+        # IDE(s)

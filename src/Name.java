@@ -8,6 +8,7 @@ public class Name {
         this.first = firstname;
         this.last = lastname;
     }
+  
     String firstname(){
         return this.first;
     }

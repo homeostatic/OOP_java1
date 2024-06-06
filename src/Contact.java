@@ -13,6 +13,7 @@ public class Contact extends AbstractContact {
         
         this.setName(name);
     }
+
     static Contact scanContact(Scanner scan){
 
         // method for reading in parameters from User and creating contacts

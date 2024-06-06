@@ -15,6 +15,7 @@ public class Firma extends AbstractContact {
         
     }
 
+
     Contact getFounder() {
         return founder;
     }
