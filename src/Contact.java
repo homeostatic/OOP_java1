@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Contact extends AbstractContact {
     private Name name;
+              // address is inherited from AbstractContact
 
     Contact(Name name, Address address ){
         // Constructor which allows for direct assignment of parameters
@@ -15,7 +16,7 @@ public class Contact extends AbstractContact {
     }
 
     static Contact scanContact(Scanner scan){
-
+        // accepts and passed Scanner object to and from respective sub-methods
         // method for reading in parameters from User and creating contacts
 
         // Step 1: Name

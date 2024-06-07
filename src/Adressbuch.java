@@ -37,17 +37,19 @@ public class Adressbuch {
 		
 		
 		System.out.println("Which of the following entries do you want to delete (-1 for cancel)");
+		// lists contacts
 		this.printContacts();
-		String s = scan.nextLine();
 
+		String s = scan.nextLine();
 		int s1 = Integer.parseInt(s);
 		
 		if(s1 == -1) {
-			
+			// do nothing
 			 return;
 		}
 		
 		if (s1 > this.adressbuch.size() - 1) {
+			// error state
 			System.out.println("Entry does not exist!");
 			this.deleteContact(scan);
 			
@@ -64,8 +66,12 @@ public class Adressbuch {
 	public void addContact(Scanner scan){
 		// methode for adding entries to the addressbook via interactive console inputs
 		// accepts the Scanner object created in the main class to read user input
+
+		// reads user input and calls the respective sub-tool for contact creation
 		System.out.println("What Kind of contact do you want to add? \n 1: Person \n 2: Company \n 3: Exit");
 		Integer input = Integer.valueOf(scan.nextLine());
+
+		
 		if (input==1){
 			
 			Contact contact = Contact.scanContact(scan);
@@ -110,11 +116,6 @@ public class Adressbuch {
 			System.out.println(String.format("No results for '%s' found.", s));
 		}
 		
-	}
-	
-		
-	
-		
-	
+	}	
 
 }

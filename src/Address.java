@@ -14,6 +14,7 @@ public class Address {
         this.postcode = postcode;
     }
     Address(String street, int houseNumber, String city, int postcode){
+        // alternate constructor to allow parsing of integer type housenumber and zipcodes
         // all data stored as strings to account for anomalous addresses eg: houseNumber:42a or postcode:E1 7HT
         this.street = street;
         this.houseNumber = String.valueOf(houseNumber);
@@ -21,28 +22,26 @@ public class Address {
         this.postcode = String.valueOf(postcode);
     }
     
- 
-    // package private
+
     static Address scanAddress(Scanner scan){
+        // called from addContact()->scanContact() and addContact()->scanFirma
+        // creates a new Address object based on user input, accepts a Scanner object als arg in order to sequentially read console
+
             System.out.println("What is the address of your contact?");
+
 			System.out.println("Enter a city:");
 			String city = scan.nextLine();
+
 			System.out.println("Enter a zipcode");
-			
 			String zipcode = scan.nextLine();
-            //int zipcodeInt = 0;
-			//if (zipcode != "") {
-			//	zipcodeInt = Integer.parseInt(zipcode);
-			//}
 			
 			System.out.println("Enter a street");
 			String street = scan.nextLine();
+
 			System.out.println("Enter the number of the house:");
 			String number = scan.nextLine();
-			//int numberInt = 0;
-			//if (number != "") {
-			//	numberInt = Integer.parseInt(number);
-			//}
+
+            // calls regular Address class constructor
 			Address address = new Address(city, zipcode, street, number);
             return address;
     }

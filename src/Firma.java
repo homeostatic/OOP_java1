@@ -1,8 +1,11 @@
 import java.util.Scanner;
 
+// Class for storing contact details of companies.
+
 public class Firma extends AbstractContact {
     private Contact founder;
     private String FirmName;
+                // address is inherited from AbstractContact
 
     Firma(Contact founder, String firmName, Address address) {
         this.founder = founder;

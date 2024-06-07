@@ -1,0 +1,30 @@
+##################################################################################################################################
+Objektorientierte Programmierung SoSe24
+Java Projekt 1 - Address book
+Jenna Krüger [stu223281] & Sam Tagart Cottis [stu247962]
+
+Java Projekt 1 - Dokumentation
+
+
+Wir haben unser Programm in der Java Version 17.0.11+9  und der Ecplise IDE bearbeitet und in dieser Version haben alle von uns durchgeführten Tests funktioniert.
+
+Das Projekt haben wir zunächst damit gestartet die einzelnen Klassen Name, Address, Contact und Firma zu erstellen, damit wir diese danach verwenden konnten,
+um das Adressbuch zu erstellen und uns die Eigenschaften unserer abstrakten Oberklasse AbstractContact zu überlegen. Diese besteht bei uns aus dem Attribut
+Adresse und einer abstrakten toString Methode, da dies sowohl eine Firma als auch ein Kontakt aufweisen. Da die toString Methode überschrieben wird, gibt es
+keine andere Möglichkeit als sie weiterhin public zu lassen. Alle anderen Attribute und Methoden wurden jedoch gemäß der Aufgabenstellung privat bzw. package-
+-private gesetzt. Das Adressbuch ist eine ArrayList, die entweder schon beim Aufruf übergeben werden kann oder beim Aufruf ohne übergebene Parameter als leere
+ArrayList erstellt wird. Beide Fälle werden in unserer Main Methode ausgeführt und bieten die Möglichkeit unsere geschriebenen Methoden anzuwenden. Den Gründer
+der Firma haben wir als Objekt der Contact-Klasse abgespeichert, da wir davon ausgegangen sind, dass ein Gründer und die Firma selbst unterschiedliche Adressen
+haben. Wir sind außerdem zunächst davon ausgegangen, dass die Postleitzahl und die Hausnummer nur integer sind, haben allerdings während des Prozesses
+festgestellt, dass es auch Hausnummern und Postleitzahlen mit Buchstaben gibt, die von unserem Programm zu diesem Zeitpunkt noch nicht erfasst wurden. Aus 
+diesem Grund haben wir uns dafür entschieden diese Attribute auch in Strings umzuwandeln, was außerdem die spätere Verwendung im Adressbuch erleichtert hat.
+
+Damit wir in der addContact und deleteContact Methode Eingaben aus der Konsole einlesen können, mussten wir einen Scanner erstellen. Diesen haben wir in unsere
+Abgabe in der Main geöffnet und am Ende auch wieder geschlossen. Wir haben ihn dort hingepackt, weil es in dem Fall das der Scanner direkt im Adressbuch stand 
+zu dem Problem gekommen ist, dass der Scanner nur einmal verwendet werden konnten und somit zwei Kontakte hintereinander einführen gar nicht möglich war.
+Unsere beiden Methoden addContact und deleteContact brauchen den Übergabeparameter scan, damit sie beim Ausführen die Eingaben in der Konsole lesen können. Bei
+der addContact Methode können in unserer Abgabe alle Werte leer bleiben, was bedeutet, dass man auch einen Kontakt oder eine Firma ohne irgendeinen Eintrag
+erstellen kann. Außerdem gibt es eine Exit-Möglichkeit, die immer dann aufgerufen wird, wenn keine 1 für „Contact hinzufügen“ oder 2 für „Firma hinzufügen“ 
+angegeben wird. Die delete Methode wird hingegen immer wieder von vorne aufgerufen, wenn eine Zahl angeben wird, die größer als die Anzahl der Einträge im 
+Adressbuch ist. Ein Abbruch ist hier nur durch die Eingabe einer -1 möglich. 
+
