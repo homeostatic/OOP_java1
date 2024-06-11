@@ -1,0 +1,55 @@
+ToDo:
+-Start und Ziel
+    -win/lose/replay state
+-Labyrinth bauen
+-Verfolger entwicklen
+
+
+
+
+Dieses Spiel soll zu einer funktionierenden Implementierung von Labyrinth-Person erweitert werden:
+
+1. Generieren Sie ein Spielfeld sowie Start und Ziel.
+
+    Statt einem leeren Feld sollte beim Start also ein Labyrinth mit fester Größe (mindestens 10x10) 
+    mit Start und Ziel generiert werden.
+
+    Labyrinth-Person startet auf dem Startfeld und muss das Zielfeld erreichen, um zu gewinnen.
+    Überlegen Sie sich, wie Sie verschiedene Arten von Feldern (Start, Ziel, Gang, Wand) 
+    auf Ihrem 2-dimensionalen Spielfeld darstellen und speichern können.
+
+    Passen Sie dabei sowohl die grafische View als auch die konsolenbasierte View entsprechend an.
+
+2. Schwierigkeit und Verfolger:
+
+    Labyrinth-Person wird auf dem Weg durch das Labyrinth verfolgt. Das Spiel findet rundenbasiert statt.
+    Wenn Labyrinth-Person einen Zug ausführt, bewegen sich seine Verfolger entsprechend.
+
+    Generieren Sie Verfolger, die Labyrinth-Person (mehr oder weniger gut) verfolgen. 
+    Sobald Labyrinth-Person sich auf dem gleichen Feld wie ein Verfolger befindet, ist das Spiel verloren.
+
+    Die Schwierigkeit, also die Anzahl der Verfolger, die Geschwindigkeit der Verfolger,
+    ihre Zielstrebigkeit oder Ähnliches, sollte über die GUI anpassbar sein.
+
+3. Darstellung und GUI
+ 
+    Überlegen Sie sich eine ansprechende grafische Darstellung und ersetzen Sie die tristen Rechtecke in der
+    gegebenen Implementierung. Außerdem sollte das Spiel aus der GUI heraus neu startbar sein.
+ 
+4. Dokumentation (Am besten schon während der vorherigen Schritte anfangen):
+ 
+    Alle Methoden, Attribute und Klassen sollen hinreichend dokumentiert sein (Kommentare und Javadoc).
+    
+    Die Dokumentation enthält die benutze Java-Version, die benutze Entwicklungsumgebung und Beschreibung,
+    wie Ihr Spiel gestartet und gespielt werden soll.
+    Erklären Sie außerdem, welche Features Sie eingebaut haben und wie ihre GUI funktioniert.
+ 
+5. Kapselung:
+ 
+    Alle Attribute aller Klassen sollten privat sein (mit Ausnahme vordefinierter Atttribute).
+    Model, View und Controller sollten nur über festgelegte und dokumentierte Schnittstellen kommunizieren dürfen.
+ 
+Abgabe:
+
+    Die Abgabe besteht aus dem .zip Archiv, im dem alle Klassen in ihrem entsprechenden Paket enthalten sind,
+    sowie ihre Dokumentation als txt Textdatei. Wir erwarten, dass Java-Code ohne Probleme kompiliert und lauffähig ist.
