@@ -39,11 +39,11 @@ public class GraphicView extends JPanel implements View {
 	@Override
 	public void paint(Graphics g) {
 		// Paint background
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(bg.x, bg.y, bg.width, bg.height);
 		// Paint player
 		g.setColor(Color.BLACK);
-		g.fillRect(player.x, player.y, player.width, player.height);
+		g.fillOval(player.x, player.y, player.width, player.height);
 	}
 
 	@Override
