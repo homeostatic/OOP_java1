@@ -31,6 +31,10 @@ public class Adressbuch {
 		}
 	}	
 
+	
+	/** 
+	 * @param scan
+	 */
 	public void deleteContact(Scanner scan) {
 		// interactive console tool for the deletion of a user selected Entry in the Addressbook
 		// accepts the Scanner object created in the main class to read user console inputs

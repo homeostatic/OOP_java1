@@ -4,6 +4,10 @@ public abstract class AbstractContact {
 
     
 
+    
+    /** 
+     * @return Address
+     */
     Address getAddress() {
         return address;
     }

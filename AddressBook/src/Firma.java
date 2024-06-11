@@ -19,6 +19,10 @@ public class Firma extends AbstractContact {
     }
 
 
+    
+    /** 
+     * @return Contact
+     */
     Contact getFounder() {
         return founder;
     }

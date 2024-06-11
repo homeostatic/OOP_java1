@@ -23,6 +23,11 @@ public class Address {
     }
     
 
+    
+    /** 
+     * @param scan
+     * @return Address
+     */
     static Address scanAddress(Scanner scan){
         // called from addContact()->scanContact() and addContact()->scanFirma
         // creates a new Address object based on user input, accepts a Scanner object als arg in order to sequentially read console

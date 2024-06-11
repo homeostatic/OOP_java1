@@ -15,6 +15,11 @@ public class Contact extends AbstractContact {
         this.setName(name);
     }
 
+    
+    /** 
+     * @param scan
+     * @return Contact
+     */
     static Contact scanContact(Scanner scan){
         // accepts and passed Scanner object to and from respective sub-methods
         // method for reading in parameters from User and creating contacts

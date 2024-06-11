@@ -1,9 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+/*
+ * Main method for demonstration of the Addressbook Aufgabe
+*/
 
 public class Main{
 
 
+    
+    /** 
+     * @param args
+     */
     // example useage of the Addressbuch and it's related classes 
     
     public static void main(String[] args){

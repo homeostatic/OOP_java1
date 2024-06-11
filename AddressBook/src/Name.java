@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 // Class for storing first and last names of people
 
+
 public class Name {
     private String first;
     private String last;
@@ -11,6 +12,10 @@ public class Name {
         this.last = lastname;
     }
   
+    
+    /** 
+     * @return String
+     */
     String firstname(){
         return this.first;
     }
