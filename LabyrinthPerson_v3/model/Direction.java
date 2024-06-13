@@ -20,6 +20,8 @@ public enum Direction {
 	/** The amount to move in the Y direction. */
 	public final int deltaY;
 
+
+
 	/**
 	 * Creates a new direction with the given movement values.
 	 * 
@@ -30,4 +32,5 @@ public enum Direction {
 		this.deltaX = deltaX;
 		this.deltaY = deltaY;
 	}
+
 }

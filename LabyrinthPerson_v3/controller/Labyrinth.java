@@ -19,18 +19,19 @@ public class Labyrinth {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 // Dimension of the game board (10x10).
-                int width = 20;
-                int height = 20;
+                int width = 10;
+                int height = 10;
                 // Create a new game world.
                 World world = new World(width, height);
 
                 // Size of a field in the graphical view.
-                Dimension fieldDimensions = new Dimension(15, 15);
+                Dimension fieldDimensions = new Dimension(30, 30);
                 // Create and register graphical view.
                 GraphicView gview = new GraphicView(
                         width * fieldDimensions.width,
                         height * fieldDimensions.height,
-                        fieldDimensions);
+                        fieldDimensions,
+                        world);
                 world.registerView(gview);
                 gview.setVisible(true);
 

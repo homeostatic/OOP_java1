@@ -20,8 +20,14 @@ public class ConsoleView implements View {
 				if (row == playerY && col == playerX) {
 					System.out.print("#");
 				} else {
-					System.out.print(".");
-				}
+					if (world.getBlock(col, row).isPassable()){
+						System.out.print("_");
+						}
+					else{System.out.print("%");
+						}
+		
+					}
+
 			}
 
 			// A newline after every row

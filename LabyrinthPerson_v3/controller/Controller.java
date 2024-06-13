@@ -16,7 +16,7 @@ import view.View;
 /**
  * Our controller listens for key events on the main window.
  */
-public class Controller extends JFrame implements KeyListener, ActionListener, MouseListener {
+public class Controller extends JFrame implements KeyListener {
 
 	/** The world that is updated upon every key press. */
 	private World world;
@@ -37,13 +37,9 @@ public class Controller extends JFrame implements KeyListener, ActionListener, M
 		addKeyListener(this);
 		// Listen for mouse events.
 		// Not used in the current implementation.
-		addMouseListener(this);
+		//addMouseListener(this);
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-	}
 
 	/////////////////// Key Events ////////////////////////////////
 
@@ -69,49 +65,19 @@ public class Controller extends JFrame implements KeyListener, ActionListener, M
 		}
 	}
 
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		//throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+	}
+
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-	}
-
-	/////////////////// Action Events ////////////////////////////////
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		//throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
 	}
 	
-	/////////////////// Mouse Events ////////////////////////////////
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }

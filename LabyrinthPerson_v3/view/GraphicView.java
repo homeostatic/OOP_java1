@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import controller.Labyrinth;
 import model.World;
 
 /**
@@ -21,16 +23,26 @@ public class GraphicView extends JPanel implements View {
 
 	private Dimension fieldDimension;
 
-	public GraphicView(int width, int height, Dimension fieldDimension) {
+	private Integer[] walls;
+	private int worldHeight ;
+	private int worldWidth; 
+
+	public GraphicView(int width, int height, Dimension fieldDimension, World world) {
 		this.WIDTH = width;
 		this.HEIGHT = height;
 		this.fieldDimension = fieldDimension;
 		this.bg = new Rectangle(WIDTH, HEIGHT);
+
+		// find walls
+		this.worldHeight = world.getHeight();
+		this.worldWidth = world.getWidth();
+		this.walls = world.wallCopy();
+
 	}
 
 	/** The background rectangle. */
 	private final Rectangle bg;
-	/** The rectangle we're moving. */
+	/** The *dot* we're moving. */
 	private final Rectangle player = new Rectangle(1, 1);
 
 	/**
@@ -44,7 +56,19 @@ public class GraphicView extends JPanel implements View {
 		// Paint player
 		g.setColor(Color.BLACK);
 		g.fillOval(player.x, player.y, player.width, player.height);
+
+		// Paint walls
+		g.setColor(Color.GREEN);
+		for (int y = 0; y<this.worldHeight; y++){
+			for (int x = 0; x<this.worldWidth; x++){
+				if (this.walls[World.xyConvert(x, y, this.worldWidth, this.worldHeight)]==1){
+					g.fillRect(x*fieldDimension.width, y*fieldDimension.height, fieldDimension.width, fieldDimension.height);
+				}
+			}
+		}
+		
 	}
+	
 
 	@Override
 	public void update(World world) {
@@ -55,6 +79,10 @@ public class GraphicView extends JPanel implements View {
 			(int) (world.getPlayerX() * fieldDimension.width),
 			(int) (world.getPlayerY() * fieldDimension.height)
 		);
+
+		;
+
+
 		repaint();
 	}
 

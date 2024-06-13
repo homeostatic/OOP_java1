@@ -1,6 +1,9 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import org.w3c.dom.ranges.RangeException;
 
 import view.View;
 
@@ -20,6 +23,20 @@ public class World {
 	/** The player's y position in the world. */
 	private int playerY = 0;
 
+	private Integer[] pattern = {   0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+									1, 1, 0, 1, 0, 1, 1, 0, 1, 0,
+									0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
+									0, 1, 1, 1, 0, 1, 0, 0, 1, 0,
+									0, 0, 1, 0, 0, 1, 0, 1, 1, 0,
+									1, 0, 1, 0, 1, 0, 0, 1, 0, 0,
+									1, 0, 0, 0, 1, 0, 1, 1, 1, 0,
+									1, 1, 1, 0, 1, 0, 0, 1, 0, 0,
+									0, 0, 1, 0, 1, 1, 0, 1, 1, 1,
+									0, 0, 0, 0, 1, 0, 0, 0, 0, 0
+	  };
+
+	private ArrayList<Block> blocklist;
+
 	/** Set of views registered to be notified of world updates. */
 	private final ArrayList<View> views = new ArrayList<>();
 
@@ -30,12 +47,69 @@ public class World {
 		// Normally, we would check the arguments for proper values
 		this.width = width;
 		this.height = height;
+		this.blocklist = generateWorld();
+
+		
 	}
+
+	//////////////////////////////////////////////////////////////////////////
+	// World gen
+	/**
+	 * function for placing blocks in the world
+	 * 
+	 * @return arraylist with placed blocks
+	 */
+
+	private ArrayList<Block> generateWorld(){
+		// build arraylist of blocks which makeup the world.
+		blocklist = new ArrayList<Block>();
+		
+		for (int i=0; i<width*height; i++){
+			// fill world with blocks
+			if (this.pattern[i] == 1){
+				blocklist.add(new Wall());
+				}
+			if (this.pattern[i] == 0){
+				blocklist.add(new Path());
+			}
+		// not needed??
+		//updateViews();
+		}
+		return blocklist;
+		
+
+	} 
+	/**
+	 * generates a path through the maze
+	 * 
+	 * @return
+	 */
+	private Direction wallpather(){
+		;
+	}
+
 
 	///////////////////////////////////////////////////////////////////////////
 	// Getters and Setters
 
+	/*
+	 * Static method for converting an (x,y) coordinate pair into an index of an Array mapped to a width and height
+	 */
+	public static int xyConvert(int x, int y, int width, int height){
+		int index = y*width+x;
+		return index;
+	}
+
+
 	/**
+	 * @return a copy of the pattern used to build the world
+	 */
+	public Integer[] wallCopy(){
+		return this.pattern.clone();
+	}
+
+	/**
+	 *
 	 * Returns the width of the world.
 	 * 
 	 * @return the width of the world.
@@ -52,6 +126,22 @@ public class World {
 	public int getHeight() {
 		return height;
 	}
+
+	/**
+	 * Returns block at given coordinates
+	 * 
+	 * @return the block at a given Position
+	 */
+	
+	public Block getBlock(int x, int y){
+		if (y<this.height && x<this.width){
+			int blocknumber = y*this.width+x;
+			return this.blocklist.get(blocknumber);
+		}
+		else{
+			throw new ArrayIndexOutOfBoundsException("Block is out of range");
+		}
+	} 
 
 	/**
 	 * Returns the player's x position.
@@ -102,15 +192,31 @@ public class World {
 	
 	/**
 	 * Moves the player along the given direction.
+	 * ->checks if block is "passable" before moving
 	 * 
 	 * @param direction where to move.
 	 */
-	public void movePlayer(Direction direction) {	
-		// The direction tells us exactly how much we need to move along
-		// every direction
-		setPlayerX(getPlayerX() + direction.deltaX);
-		setPlayerY(getPlayerY() + direction.deltaY);
+	public void movePlayer(Direction direction) {
+
+		// check if we're trying to move into a wall
+		try {
+			if (getBlock(getPlayerX() + direction.deltaX, getPlayerY()+direction.deltaY).isPassable()){
+
+				// The direction tells us exactly how much we need to move along
+				// every direction
+	
+				setPlayerX(getPlayerX() + direction.deltaX);
+				setPlayerY(getPlayerY() + direction.deltaY);
+				
+			}
+			else{ 
+			;// don't
+			}	
+		} catch (Exception ArrayIndexOutOfBoundsException) {
+			;// don't
+		}
 	}
+
 
 	///////////////////////////////////////////////////////////////////////////
 	// View Management
