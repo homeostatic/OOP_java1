@@ -1,7 +1,9 @@
 ToDo:
 -Start und Ziel
+                            start done
     -win/lose/replay state
 -Labyrinth bauen
+                            done?
 -Verfolger entwicklen
 
 

@@ -1,9 +1,7 @@
 package model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
-import org.w3c.dom.ranges.RangeException;
+import java.util.ArrayList;
 
 import view.View;
 
@@ -23,16 +21,16 @@ public class World {
 	/** The player's y position in the world. */
 	private int playerY = 0;
 
-	private Integer[] pattern = {   0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+	private Integer[] pattern = {   2, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 									1, 1, 0, 1, 0, 1, 1, 0, 1, 0,
 									0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
-									0, 1, 1, 1, 0, 1, 0, 0, 1, 0,
-									0, 0, 1, 0, 0, 1, 0, 1, 1, 0,
-									1, 0, 1, 0, 1, 0, 0, 1, 0, 0,
-									1, 0, 0, 0, 1, 0, 1, 1, 1, 0,
-									1, 1, 1, 0, 1, 0, 0, 1, 0, 0,
-									0, 0, 1, 0, 1, 1, 0, 1, 1, 1,
-									0, 0, 0, 0, 1, 0, 0, 0, 0, 0
+									0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
+									0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
+									1, 0, 0, 0, 1, 0, 0, 1, 0, 1,
+									1, 1, 0, 1, 0, 0, 1, 1, 0, 0,
+									1, 0, 1, 0, 0, 1, 0, 1, 1, 0,
+									0, 0, 1, 0, 1, 1, 0, 0, 0, 1,
+									1, 0, 0, 0, 0, 0, 0, 1, 0, 0
 	  };
 
 	private ArrayList<Block> blocklist;
@@ -63,7 +61,6 @@ public class World {
 	private ArrayList<Block> generateWorld(){
 		// build arraylist of blocks which makeup the world.
 		blocklist = new ArrayList<Block>();
-		
 		for (int i=0; i<width*height; i++){
 			// fill world with blocks
 			if (this.pattern[i] == 1){
@@ -72,6 +69,10 @@ public class World {
 			if (this.pattern[i] == 0){
 				blocklist.add(new Path());
 			}
+			if (this.pattern[i] == 2){
+				String special = new String("Start");
+				blocklist.add(new Path(special));
+			}
 		// not needed??
 		//updateViews();
 		}
@@ -79,15 +80,6 @@ public class World {
 		
 
 	} 
-	/**
-	 * generates a path through the maze
-	 * 
-	 * @return
-	 */
-	private Direction wallpather(){
-		;
-	}
-
 
 	///////////////////////////////////////////////////////////////////////////
 	// Getters and Setters
@@ -135,7 +127,8 @@ public class World {
 	
 	public Block getBlock(int x, int y){
 		if (y<this.height && x<this.width){
-			int blocknumber = y*this.width+x;
+
+			int blocknumber = World.xyConvert(x, y, this.width, this.height);
 			return this.blocklist.get(blocknumber);
 		}
 		else{

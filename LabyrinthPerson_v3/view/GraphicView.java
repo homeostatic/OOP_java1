@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import controller.Labyrinth;
 import model.World;
 
 /**
@@ -26,6 +25,7 @@ public class GraphicView extends JPanel implements View {
 	private Integer[] walls;
 	private int worldHeight ;
 	private int worldWidth; 
+	private World world;
 
 	public GraphicView(int width, int height, Dimension fieldDimension, World world) {
 		this.WIDTH = width;
@@ -33,10 +33,11 @@ public class GraphicView extends JPanel implements View {
 		this.fieldDimension = fieldDimension;
 		this.bg = new Rectangle(WIDTH, HEIGHT);
 
-		// find walls
+		// link the the world being drawn
+		this.world = world;
 		this.worldHeight = world.getHeight();
 		this.worldWidth = world.getWidth();
-		this.walls = world.wallCopy();
+		//this.walls = world.wallCopy();
 
 	}
 
@@ -53,19 +54,26 @@ public class GraphicView extends JPanel implements View {
 		// Paint background
 		g.setColor(Color.BLUE);
 		g.fillRect(bg.x, bg.y, bg.width, bg.height);
-		// Paint player
-		g.setColor(Color.BLACK);
-		g.fillOval(player.x, player.y, player.width, player.height);
 
 		// Paint walls
 		g.setColor(Color.GREEN);
 		for (int y = 0; y<this.worldHeight; y++){
 			for (int x = 0; x<this.worldWidth; x++){
-				if (this.walls[World.xyConvert(x, y, this.worldWidth, this.worldHeight)]==1){
+				if (!this.world.getBlock(x,y).isPassable()){
 					g.fillRect(x*fieldDimension.width, y*fieldDimension.height, fieldDimension.width, fieldDimension.height);
+				}
+				else if(this.world.getBlock(x, y).getSpecial().equals("Start")){
+					// extra code for painting the start field
+					g.setColor(Color.YELLOW);
+					g.fillRoundRect(x*fieldDimension.width, y*fieldDimension.height, fieldDimension.width, fieldDimension.height,20,20);
+					g.setColor(Color.GREEN);
 				}
 			}
 		}
+		// Paint player
+		g.setColor(Color.BLACK);
+		g.fillOval(player.x, player.y, player.width, player.height);
+		
 		
 	}
 	

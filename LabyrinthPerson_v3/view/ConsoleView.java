@@ -20,12 +20,17 @@ public class ConsoleView implements View {
 				if (row == playerY && col == playerX) {
 					System.out.print("#");
 				} else {
-					if (world.getBlock(col, row).isPassable()){
-						System.out.print("_");
+					if (world.getBlock(col, row).getSpecial().equals("None")){
+						if (world.getBlock(col, row).isPassable()){
+							System.out.print("_");
+							}
+						else{
+							System.out.print("%");
+							}
 						}
-					else{System.out.print("%");
+					else{
+						System.out.print(world.getBlock(col, row).getSpecial().substring(0,1));
 						}
-		
 					}
 
 			}
