@@ -1,17 +1,12 @@
 package controller;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.List;
+
 
 import javax.swing.JFrame;
 
 import model.Direction;
 import model.World;
-import view.View;
 
 /**
  * Our controller listens for key events on the main window.
@@ -20,8 +15,8 @@ public class Controller extends JFrame implements KeyListener {
 
 	/** The world that is updated upon every key press. */
 	private World world;
-	private List<View> views;
-
+	//private List<View> views;
+	
 	/**
 	 * Creates a new instance.
 	 * 
@@ -38,6 +33,7 @@ public class Controller extends JFrame implements KeyListener {
 		// Listen for mouse events.
 		// Not used in the current implementation.
 		//addMouseListener(this);
+		
 	}
 
 
@@ -49,20 +45,52 @@ public class Controller extends JFrame implements KeyListener {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_UP:
 			world.movePlayer(Direction.UP);
+			world.moveFollower();
+	
 			break;
 
 		case KeyEvent.VK_DOWN:
 			world.movePlayer(Direction.DOWN);
+			world.moveFollower();
+			
 			break;
 
 		case KeyEvent.VK_LEFT:
 			world.movePlayer(Direction.LEFT);
+			world.moveFollower();
+			
+			
 			break;
 
 		case KeyEvent.VK_RIGHT:
 			world.movePlayer(Direction.RIGHT);
+			world.moveFollower();
+			
 			break;
+			
+		case KeyEvent.VK_1:
+			world.reset(1);
+			break;
+			
+		
+		case KeyEvent.VK_2:
+			world.reset(2);
+			break;
+		
+		case KeyEvent.VK_3:
+			world.reset(3);
+			break;
+			
+			
+		case KeyEvent.VK_ESCAPE:
+			System.exit(0);
+			break;
+			
 		}
+		
+	
+		
+			
 	}
 
 

@@ -1,9 +1,12 @@
 package controller;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 import model.World;
 import view.ConsoleView;
@@ -25,7 +28,7 @@ public class Labyrinth {
                 World world = new World(width, height);
 
                 // Size of a field in the graphical view.
-                Dimension fieldDimensions = new Dimension(30, 30);
+                Dimension fieldDimensions = new Dimension(50, 50);
                 // Create and register graphical view.
                 GraphicView gview = new GraphicView(
                         width * fieldDimensions.width,
@@ -41,19 +44,29 @@ public class Labyrinth {
 
                 // Create controller and initialize JFrame.
                 Controller controller = new Controller(world);
-                controller.setTitle("Square Move Practice");
+                controller.setTitle("Maze Game");
                 controller.setResizable(false);
                 controller.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                controller.getContentPane().add(gview);
+                controller.getContentPane().add(gview, BorderLayout.CENTER);
+                
+                JPanel menu = new JPanel();
+                menu.setLayout( new java.awt.GridLayout( 4, 1 ) );
+           
+                menu.add(new JLabel("Press 1 for easy mode!"));
+                menu.add(new JLabel("Press 2 for medium mode!"));
+                menu.add(new JLabel("Press 3 for hard mode!"));
+                menu.add(new JLabel("Press ESC for Exit!"));
+                controller.getContentPane().add(menu, BorderLayout.SOUTH);
                 // pack() is needed before JFrame size can be calculated.
                 controller.pack();
 
                 // Calculate size of window by size of insets (titlebar + border) and size of
                 // graphical view.
                 Insets insets = controller.getInsets();
+                
 
                 int windowX = width * fieldDimensions.width + insets.left + insets.right;
-                int windowY = height * fieldDimensions.height + insets.bottom + insets.top;
+                int windowY = height * fieldDimensions.height + insets.bottom + insets.top + menu.getHeight();
                 Dimension size = new Dimension(windowX, windowY);
                 controller.setSize(size);
                 controller.setMinimumSize(size);

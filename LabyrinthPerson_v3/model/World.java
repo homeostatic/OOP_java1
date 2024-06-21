@@ -1,7 +1,7 @@
 package model;
 
-
 import java.util.ArrayList;
+import java.util.Random;
 
 import view.View;
 
@@ -16,24 +16,53 @@ public class World {
 	private final int width;
 	/** The world's height. */
 	private final int height;
+
 	/** The player's x position in the world. */
 	private int playerX = 0;
 	/** The player's y position in the world. */
 	private int playerY = 0;
+	/**the last direction the player moved */
+	private Direction playerfacing;
 
-	private Integer[] pattern = {   2, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+	/** The start x position in the world. */
+	private int startX = 0;
+	/** The start y position in the world. */
+	private int startY = 0;
+	
+	/** The finish x position in the world. */
+	private int finishX = 9;
+	/** The finish y position in the world. */
+	private int finishY = 9;
+
+	/** The follower's x position in the world. */
+	private int followerX = 0;
+	/** The follower's y position in the world. */
+	private int followerY = 8;
+	
+	private int steps = 0;
+	
+	/** game state variables */
+	private boolean victoryPlayer = false;
+	private boolean victoryFollower = false;
+	private int modus = 1;
+
+	/** list used to map out the placement of wall and path blocks */
+	private Integer[] pattern = {   0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
 									1, 1, 0, 1, 0, 1, 1, 0, 1, 0,
 									0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
-									0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
-									0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
-									1, 0, 0, 0, 1, 0, 0, 1, 0, 1,
-									1, 1, 0, 1, 0, 0, 1, 1, 0, 0,
-									1, 0, 1, 0, 0, 1, 0, 1, 1, 0,
-									0, 0, 1, 0, 1, 1, 0, 0, 0, 1,
-									1, 0, 0, 0, 0, 0, 0, 1, 0, 0
+									0, 1, 1, 1, 0, 1, 0, 0, 1, 0,
+									0, 0, 1, 0, 0, 1, 0, 1, 1, 0,
+									1, 0, 0, 0, 1, 1, 0, 1, 0, 0,
+									1, 1, 0, 0, 1, 1, 0, 1, 1, 0,
+									1, 1, 1, 0, 1, 0, 0, 1, 0, 0,
+									0, 1, 1, 0, 1, 1, 0, 1, 1, 1,
+									0, 0, 0, 0, 1, 0, 0, 0, 0, 0
 	  };
-
-	private ArrayList<Block> blocklist;
+	  private ArrayList<Block> blocklist;
+	
+	
+	/** this is the best way the follower can go */
+	private String[] followerWay = {"","D","", "R","","R","", "R","", "U","", "U", "","U","", "U","", "U","", "R","", "U","", "U","", "U","", "U","", "R","","R","", "R","", "D","", "D","", "D","", "L","", "D", "","D","","D","","D","","D","","D","","R","","R","", "R",};
 
 	/** Set of views registered to be notified of world updates. */
 	private final ArrayList<View> views = new ArrayList<>();
@@ -47,7 +76,6 @@ public class World {
 		this.height = height;
 		this.blocklist = generateWorld();
 
-		
 	}
 
 	//////////////////////////////////////////////////////////////////////////
@@ -61,6 +89,7 @@ public class World {
 	private ArrayList<Block> generateWorld(){
 		// build arraylist of blocks which makeup the world.
 		blocklist = new ArrayList<Block>();
+		
 		for (int i=0; i<width*height; i++){
 			// fill world with blocks
 			if (this.pattern[i] == 1){
@@ -69,17 +98,13 @@ public class World {
 			if (this.pattern[i] == 0){
 				blocklist.add(new Path());
 			}
-			if (this.pattern[i] == 2){
-				String special = new String("Start");
-				blocklist.add(new Path(special));
-			}
-		// not needed??
-		//updateViews();
+		
 		}
 		return blocklist;
 		
 
 	} 
+
 
 	///////////////////////////////////////////////////////////////////////////
 	// Getters and Setters
@@ -119,16 +144,83 @@ public class World {
 		return height;
 	}
 
+	public int getStartX() {
+		return startX;
+	}
+
+	public void setStartX(int startX) {
+		this.startX = startX;
+	}
+
+	public int getStartY() {
+		return startY;
+	}
+
+	public void setStartY(int startY) {
+		this.startY = startY;
+	}
+
+	public int getFinishX() {
+		return finishX;
+	}
+
+	public void setFinishX(int finishX) {
+		this.finishX = finishX;
+	}
+
+	public int getFinishY() {
+		return finishY;
+	}
+
+	public void setFinishY(int finishY) {
+		this.finishY = finishY;
+	}	
+	
+
+	public int getFollowerX() {
+		return followerX;
+	}
+
+	public void setFollowerX(int followerX) {
+
+			followerX = Math.max(0, followerX);
+			followerX = Math.min(getWidth() - 1, followerX);
+			this.followerX = followerX;
+			
+			updateViews();
+
+	}
+
+	public int getFollowerY() {
+		return followerY;
+	}
+	
+	
+
+	public void setFollowerY(int followerY) {
+		followerY = Math.max(0, followerY);
+		followerY = Math.min(getWidth() - 1, followerY);
+		this.followerY = followerY;
+		
+		updateViews();
+
+
+	}
+
+	public Direction getPlayerfacing(){
+		return this.playerfacing;
+	}
+
 	/**
 	 * Returns block at given coordinates
 	 * 
+	 * @param x x position
+	 * @param y y positon
 	 * @return the block at a given Position
 	 */
-	
 	public Block getBlock(int x, int y){
 		if (y<this.height && x<this.width){
-
-			int blocknumber = World.xyConvert(x, y, this.width, this.height);
+			int blocknumber = y*this.width+x;
 			return this.blocklist.get(blocknumber);
 		}
 		else{
@@ -179,10 +271,49 @@ public class World {
 		
 		updateViews();
 	}
+	
+	public boolean isVictoryPlayer() {
+		return victoryPlayer;
+	}
+
+	public void setVictoryPlayer(boolean victoryPlayer) {
+		this.victoryPlayer = victoryPlayer;
+	}
+
+	public boolean isVictoryFollower() {
+		return victoryFollower;
+	}
+
+	public void setVictoryFollower(boolean victoryFollower) {
+		this.victoryFollower = victoryFollower;
+	}
+
+	public int getModus() {
+		return modus;
+	}
+
+	public void setModus(int modus) {
+		this.modus = modus;
+	}
+
+	public int getSteps() {
+		return steps;
+	}
+
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+	
+	
+	
 
 	///////////////////////////////////////////////////////////////////////////
 	// Player Management
 	
+	public String[] getFollowerWay() {
+		return followerWay;
+	}
+
 	/**
 	 * Moves the player along the given direction.
 	 * ->checks if block is "passable" before moving
@@ -191,6 +322,7 @@ public class World {
 	 */
 	public void movePlayer(Direction direction) {
 
+		this.playerfacing = direction;
 		// check if we're trying to move into a wall
 		try {
 			if (getBlock(getPlayerX() + direction.deltaX, getPlayerY()+direction.deltaY).isPassable()){
@@ -201,6 +333,7 @@ public class World {
 				setPlayerX(getPlayerX() + direction.deltaX);
 				setPlayerY(getPlayerY() + direction.deltaY);
 				
+				
 			}
 			else{ 
 			;// don't
@@ -208,8 +341,114 @@ public class World {
 		} catch (Exception ArrayIndexOutOfBoundsException) {
 			;// don't
 		}
+		
+		
+		if (getPlayerX() == finishX && getPlayerY() == finishY) {
+			
+			
+			victoryPlayer = true;
+			updateViews();
+			
+		}
+			steps = steps + 1;
+			
+	
 	}
+	
+	
+	public void moveFollower() {
 
+		Direction direction = Direction.NONE;
+		
+		switch(modus) {
+		
+		case 1:
+			Direction[] directionList = {Direction.DOWN, Direction.LEFT, Direction.RIGHT, Direction.UP};
+			direction = directionList[new Random().nextInt(directionList.length)];
+			break;
+		case 2:
+		
+			if (steps % 2 != 0 && steps < followerWay.length) {
+				
+				if (followerWay[steps] == "U") {
+					direction = Direction.UP;
+				}
+				
+				if (followerWay[steps] == "D") {
+					direction = Direction.DOWN;;
+				}
+				
+				if (followerWay[steps] == "L") {
+					direction = Direction.LEFT;;
+				}
+				
+				if (followerWay[steps] == "R") {
+					direction = Direction.RIGHT;
+				}
+				
+			}
+			break;
+			
+		case 3:
+			if (steps < followerWay.length) {
+				
+				if (followerWay[steps] == "") {
+					
+					steps = steps + 1;
+				}
+				
+				if (followerWay[steps] == "U") {
+					direction = Direction.UP;
+				}
+				
+				if (followerWay[steps] == "D") {
+					direction = Direction.DOWN;;
+				}
+				
+				if (followerWay[steps] == "L") {
+					direction = Direction.LEFT;;
+				}
+				
+				if (followerWay[steps] == "R") {
+					direction = Direction.RIGHT;
+				}
+				
+			}
+			break;
+		}
+		try {
+			if (getBlock(getFollowerX() + direction.deltaX, getFollowerY()+direction.deltaY).isPassable()){
+
+				// The direction tells us exactly how much we need to move along
+				// every direction
+				this.setFollowerX(this.getFollowerX() + direction.deltaX);
+				this.setFollowerY(this.getFollowerY() + direction.deltaY);
+	
+					
+			}
+			else{ 
+			;// don't
+			}	
+		} catch (Exception ArrayIndexOutOfBoundsException) {
+			;// don't
+		}
+			
+		
+		
+		if (getFollowerX() == finishX && getFollowerY() == finishY 
+				|| getFollowerX() == getPlayerX() && getFollowerY() == getPlayerY() ) {
+			
+			
+			victoryFollower = true;
+			updateViews();
+			
+		}
+	}
+	
+	
+	
+	
+	
 
 	///////////////////////////////////////////////////////////////////////////
 	// View Management
@@ -234,4 +473,25 @@ public class World {
 		}
 	}
 
+	public void reset(int newModus) {
+		setModus(newModus);
+		setPlayerX(0);
+		setPlayerY(0);
+		setFollowerX(0);
+		setFollowerY(8);
+		setSteps(0);
+		victoryFollower = false;
+		victoryPlayer = false;
+		
+		updateViews();
+		
+	}
+	
+	
+	
+
+	
 }
+
+
+

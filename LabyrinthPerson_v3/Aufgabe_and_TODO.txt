@@ -1,10 +1,13 @@
 ToDo:
 -Start und Ziel
                             start done
+                            ziel done
     -win/lose/replay state
+        done!
 -Labyrinth bauen
                             done?
 -Verfolger entwicklen
+    done!
 
 
 
